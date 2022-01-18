@@ -13,7 +13,8 @@ services:
       - POSTGRES_PASSWORD=pgs
     volumes:
       # Volume dos dados
-      - dados:/var/lib/postgres/data
+      #- dados:/var/lib/postgres/data estava assim
+      - dados:/var/lib/postgresql/data
       # Scripts
       - ./scripts:/scripts
       - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
@@ -46,6 +47,8 @@ services:
     depends_on:
       - db
       - queue
+    environment:
+      - DB_NAME=email_sender
   queue:
     image: redis:3.2
     networks:
